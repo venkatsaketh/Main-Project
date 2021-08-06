@@ -44,17 +44,21 @@ public class PolicyController
 	{
 		ResponseEntity<?> responseEntity;
 		List<Policy> ps =null;
+		//System.out.println(ts.getValidity(token));
 		try {
 			if (ts.getValidity(token)) {
 				ps = policyser.getAll();
 			} else {
+				//System.out.println("ggqg");
 				throw new AuthorizationException("Not allowed");
 			}
 		
 		}
 		catch(Exception e)
 		{
+			//System.out.println("ggqg");
 			responseEntity= new ResponseEntity<String>(env.getProperty("string.null"),HttpStatus.INTERNAL_SERVER_ERROR);
+			return responseEntity;
 		}
 		responseEntity  = new ResponseEntity<List<Policy>>(ps,HttpStatus.OK);
 		return responseEntity;
@@ -73,6 +77,7 @@ public class PolicyController
 				Policy p =  policyser.get(pid);
 				 pr = p.getProviderList();
 			} else {
+				System.out.println("hey wrong");
 				throw new AuthorizationException("Not allowed");
 			}
 		
@@ -80,6 +85,7 @@ public class PolicyController
 		catch(Exception e)
 		{
 			responseEntity= new ResponseEntity<String>(env.getProperty("string.null"),HttpStatus.INTERNAL_SERVER_ERROR);
+			return responseEntity;
 		}
 		System.out.println(pr);
 		responseEntity = new ResponseEntity<Set<Provider>>(pr,HttpStatus.OK);
@@ -102,6 +108,7 @@ public class PolicyController
 		catch(Exception e)
 		{
 			responseEntity= new ResponseEntity<String>(env.getProperty("string.null"),HttpStatus.INTERNAL_SERVER_ERROR);
+			return responseEntity;
 		}
 		responseEntity = new ResponseEntity<List<String>>(res,HttpStatus.OK);
 		return responseEntity;
@@ -124,6 +131,7 @@ public class PolicyController
 		catch(Exception e)
 		{
 			responseEntity= new ResponseEntity<String>(env.getProperty("string.null"),HttpStatus.INTERNAL_SERVER_ERROR);
+			return responseEntity;
 		}
 		responseEntity = new ResponseEntity<Integer>(res,HttpStatus.OK);
 		return responseEntity;

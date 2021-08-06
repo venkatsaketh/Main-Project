@@ -64,6 +64,10 @@ public class SecurityController {
             } catch (IllegalArgumentException | ExpiredJwtException e) {
                 return false;
             }
+            catch(Exception e)
+            {
+            	return false;
+            }
         }
         return userId != null;
     }
